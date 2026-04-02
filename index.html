@@ -217,6 +217,26 @@
   }
   .theory-chip strong { color:var(--coral); font-weight:500; }
 
+  /* RECOMMENDATIONS */
+  .rec-grid { display:grid; grid-template-columns:1fr; gap:1.5rem; margin:2.5rem 0; }
+  .rec-card {
+    background: var(--cream); border:0.5px solid var(--border);
+    border-radius:12px; padding:2rem; border-left: 4px solid var(--teal);
+    position: relative;
+  }
+  .rec-number {
+    font-family:'Playfair Display',serif; font-size:3rem; font-weight:900;
+    color: var(--teal); opacity:0.12; position:absolute; top:1rem; right:1.5rem;
+    line-height:1;
+  }
+  .rec-title {
+    font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700;
+    color:var(--charcoal); margin-bottom:0.85rem; padding-right:3rem;
+  }
+  .rec-text {
+    font-size:0.95rem; line-height:1.85; color:#3D3D3D; font-weight:300;
+  }
+
   /* REFERENCES */
   #references { background:white; }
   .ref-list { list-style:none; }
@@ -265,6 +285,20 @@
   .ep-title { color: white; font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; }
   .ep-text { color: rgba(255,255,255,0.65); font-size: 0.82rem; font-weight: 300; text-align: center; max-width: 280px; line-height: 1.5; }
 
+  /* IMAGES */
+  .img-block {
+    margin: 2rem 0; border-radius: 12px; overflow: hidden;
+    border: 0.5px solid var(--border);
+  }
+  .img-block img {
+    width: 100%; height: 380px; object-fit: cover; display: block;
+  }
+  .img-caption {
+    padding: 0.75rem 1.25rem; font-size: 0.78rem;
+    color: var(--mid); font-weight: 300; font-style: italic;
+    background: white; border-top: 0.5px solid var(--border);
+  }
+
   @media(max-width:700px) {
     nav { padding:0 1rem; }
     .nav-links { display:none; }
@@ -283,6 +317,7 @@
     <a href="#numbers">By The Numbers</a>
     <a href="#clara">Clara & Me</a>
     <a href="#tigers">The Tigers</a>
+    <a href="#recommendations">Recommendations</a>
     <a href="#references">References</a>
   </div>
 </nav>
@@ -305,6 +340,7 @@
       <a href="#numbers">By The Numbers</a>
       <a href="#clara">Clara & Me</a>
       <a href="#tigers">The Tigers</a>
+      <a href="#recommendations">Recommendations</a>
       <a href="#references">References</a>
     </div>
   </div>
@@ -368,6 +404,11 @@
       </div>
     </div>
 
+    <div class="img-block">
+      <img src="https://images.unsplash.com/photo-1609220136736-443140cffec6?w=900&auto=format&fit=crop&q=80" alt="Mother hugging child warmly — illustrating the secure base in attachment theory" loading="lazy">
+      <div class="img-caption">The caregiver as a haven of safety — Bowlby's secure base made visible. Photo: Unsplash (free to use)</div>
+    </div>
+
     <div class="prose">
       <p>My father's later transformation in Hawaii illustrated to me the concept of the internal working model by Van Rosmalen et al. (2014). His shift in emotions indicates that he became more emotionally present towards me, his child.</p>
       <p>Fonagy et al. (2014) confirm that individuals who are securely attached to someone are independently rated as having higher levels of resilience, self-reliance, a social orientation, empathy, and both the motivation and ability to form deeper relationships with others and higher levels of self-esteem. Furthermore, I experience conflict directly with the individual involved in the relationship, I am calm under stress, and when I am stressed I communicate that to the individual with whom I have the conflict. These are the hallmarks of secure attachment to an individual.</p>
@@ -375,10 +416,10 @@
     </div>
 
     <div class="embed-block">
-      <div class="embed-label">Video 2 — Sprouts: Attachment Theory</div>
-      <div class="embed-caption">How childhood bonds shape adult life — the four attachment patterns, how they develop in early caregiving, and what they look like in adult relationships.</div>
+      <div class="embed-label">Video 2 — The Attachment Theory: How Childhood Affects Life</div>
+      <div class="embed-caption">A short animated overview showing how childhood attachment shapes adult personality, relationships and life outcomes — illustrating the long-term significance of the secure base established in early life.</div>
       <div class="embed-wrap">
-        <iframe src="https://www.youtube.com/embed/WjOowWxOXCg" title="The Attachment Theory: How Childhood Affects Life - Sprouts" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/WjOowWxOXCg" title="The Attachment Theory: How Childhood Affects Life" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
   </div>
@@ -573,6 +614,55 @@
       <div class="embed-wrap">
         <iframe src="https://www.youtube.com/embed/ZYAUyiuAG7s" title="Dog and Tiger Cubs Attachment" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECOMMENDATIONS -->
+<section id="recommendations" style="background:white;">
+  <div class="container">
+    <div class="section-label">Looking Forward</div>
+    <h2 class="section-title">Personal Recommendations: Growing Through Attachment</h2>
+    <div class="section-divider"></div>
+
+    <div class="pull-quote">
+      "Attachment patterns are not fixed. Life events, supportive relationships, and therapy can all shift adult attachment representations."
+      <cite>— Van Rosmalen, Van IJzendoorn & Bakermans-Kranenburg (2014)</cite>
+    </div>
+
+    <div class="prose">
+      <p>The literature about attachment styles demonstrates that while these styles are stable, they are not permanent. Authors Van Rosmalen et al. (2014) state that the internal working model that develops as a result of attachment styles is, as the name suggests, a working model; it can and does change based on new experiences. Additionally, Fonagy et al. (2014) state that major life events, the relationships with certain individuals, and even therapy can alter an individual's attachment style. Based on this knowledge about the changeability of attachment, I offer three theoretically grounded personal recommendations.</p>
+    </div>
+
+    <div class="rec-grid">
+
+      <div class="rec-card">
+        <div class="rec-number">01</div>
+        <div class="rec-title">Developing Mentalising Capacity in Moments of Conflict</div>
+        <div class="rec-text">In terms of thresholds for switching to automatic mentalising under times of stress, I have a high threshold due to my secure attachment style. However, even those who are securely attached to others will experience lapses in their ability to use mentalising. I would encourage myself to use the concept of controlled mentalising in situations of tension with Clara, attempting to speak and respond to her only after considering her mental state and motivations for their behaviour towards me. While not something I need to fix about how I relate to others, it is a skill I can enhance in my relationship with Clara.</div>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-number">02</div>
+        <div class="rec-title">Supporting Clara Through a Corrective Relational Experience</div>
+        <div class="rec-text">Fonagy et al. (2014) also explore ways in which attachment theory can be used to provide corrective experiences for those with insecure attachment histories. In this case, I would continue to show up in the way that I have been showing up for Clara, but with an expanded awareness of Clara's triggers. Using the broaden and build cycles that Luyten and Fonagy (2014) describe as essential to the secure attachment relationship, I can work to allow Clara to experience growth in her mentalising abilities over time.</div>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-number">03</div>
+        <div class="rec-title">Maintaining the Secure Base Across Relational Contexts</div>
+        <div class="rec-text">Van Rosmalen et al. (2014) also explain that attachment theory goes beyond the romantic relationships between individuals, but to the attachments that people form with their families, friends, and even their professional relationships with others. Therefore, it is also recommended that these behaviors be applied across all of my relationships with others, not just those with Clara. Bowlby (1973) explained that the need for attachment and closeness does not decrease as individuals age. By maintaining these behaviors within all of my relationships, I will have a positive understanding of my ability to form attachments with others.</div>
+      </div>
+
+    </div>
+
+    <div class="img-block">
+      <img src="https://images.unsplash.com/photo-1476703993599-0035a21b17a9?w=900&auto=format&fit=crop&q=80" alt="Parent and child sharing a tender moment — representing the lifelong nature of attachment bonds" loading="lazy">
+      <div class="img-caption">Bowlby (1973) argued that the need for closeness does not diminish across the lifespan. Photo: Unsplash (free to use)</div>
+    </div>
+
+    <div class="prose" style="margin-top:2rem;">
+      <p>Based on the same theoretical framework that guided this entire analysis, these recommendations for fostering mentalisation and attachment skills emerge. These recommendations are informed by the literature on mentalisation and attachment. For example, secure attachment itself is not a destination but a practice; one must continually adjust and practice the skill of being present with themselves and others they love (Fonagy et al., 2014).</p>
     </div>
   </div>
 </section>
