@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attachment Theory & The Self — Leif Buechi</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  :root {
+    --teal: #1B6B6B;
+    --teal-light: #2A8F8F;
+    --teal-pale: #E1F5EE;
+    --cream: #F9F5EF;
+    --coral: #E8735A;
+    --coral-pale: #FAECE7;
+    --charcoal: #2D2D2D;
+    --mid: #666;
+    --border: #DDD8CF;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--charcoal); }
+
+  /* NAV */
+  nav {
+    position: fixed; top:0; left:0; right:0; z-index:100;
+    background: rgba(27,107,107,0.97); backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem; height: 60px;
+  }
+  .nav-brand { font-family: 'Playfair Display', serif; color: white; font-size: 1rem; font-style:italic; opacity:0.9; }
+  .nav-links { display:flex; gap:0; }
+  .nav-links a {
+    color: rgba(255,255,255,0.75); text-decoration:none; font-size:0.78rem;
+    font-weight:500; letter-spacing:0.06em; text-transform:uppercase;
+    padding: 0 1.1rem; height:60px; display:flex; align-items:center;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+  }
+  .nav-links a:hover { color:white; border-bottom-color: var(--coral); }
+
+  /* SECTIONS */
+  section { min-height: 100vh; padding: 100px 0 80px; }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+  .container-wide { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+  /* HERO */
+  #home {
+    background: var(--teal);
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 0; position: relative; overflow:hidden;
+  }
+  #home::before {
+    content:''; position:absolute; inset:0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.04) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 20%, rgba(232,115,90,0.12) 0%, transparent 50%);
+  }
+  .hero-inner { position:relative; z-index:1; padding: 4rem 2rem; }
+  .hero-label {
+    display:inline-block; background: rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.8); font-size:0.72rem; font-weight:500;
+    letter-spacing:0.15em; text-transform:uppercase;
+    padding: 0.4rem 1.2rem; border-radius:100px; margin-bottom:2rem;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 900; color: white; line-height: 1.05;
+    margin-bottom: 1.5rem;
+  }
+  .hero-title span { color: var(--coral); font-style: italic; }
+  .hero-subtitle { color: rgba(255,255,255,0.65); font-size:1.05rem; font-weight:300; margin-bottom:3rem; }
+  .hero-quote {
+    max-width: 580px; margin: 0 auto 3.5rem;
+    font-family: 'Playfair Display', serif; font-style:italic;
+    font-size: 1.2rem; color: rgba(255,255,255,0.85); line-height:1.7;
+    border-left: 3px solid var(--coral); padding-left:1.5rem; text-align:left;
+  }
+  .hero-quote cite { display:block; font-size:0.8rem; font-style:normal; font-family:'DM Sans',sans-serif; color:rgba(255,255,255,0.5); margin-top:0.5rem; letter-spacing:0.05em; }
+  .hero-nav { display:flex; flex-wrap:wrap; gap:0.75rem; justify-content:center; }
+  .hero-nav a {
+    background: rgba(255,255,255,0.1); color:white; text-decoration:none;
+    padding: 0.6rem 1.4rem; border-radius:100px; font-size:0.82rem; font-weight:500;
+    border: 1px solid rgba(255,255,255,0.2); transition: all 0.2s;
+  }
+  .hero-nav a:hover { background: var(--coral); border-color:var(--coral); }
+
+  /* SECTION HEADERS */
+  .section-label {
+    font-size:0.72rem; font-weight:500; letter-spacing:0.15em; text-transform:uppercase;
+    color: var(--coral); margin-bottom:0.75rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight:700; line-height:1.2; margin-bottom:1.5rem; color: var(--charcoal);
+  }
+  .section-divider { width:48px; height:3px; background:var(--coral); margin-bottom:2rem; }
+
+  /* PULL QUOTE */
+  .pull-quote {
+    background: var(--teal); color:white;
+    font-family: 'Playfair Display', serif; font-style:italic;
+    font-size:1.35rem; line-height:1.6; padding:2rem 2.5rem;
+    border-radius:4px; margin: 2.5rem 0; position:relative;
+  }
+  .pull-quote::before { content:'❝'; position:absolute; top:-0.5rem; left:1.5rem; font-size:3rem; color:var(--coral); font-style:normal; line-height:1; }
+  .pull-quote cite { display:block; font-size:0.78rem; font-style:normal; font-family:'DM Sans',sans-serif; color:rgba(255,255,255,0.6); margin-top:0.75rem; letter-spacing:0.05em; }
+
+  /* PROSE */
+  .prose p { font-size:1.02rem; line-height:1.85; color:#3D3D3D; margin-bottom:1.25rem; font-weight:300; }
+  .prose p:last-child { margin-bottom:0; }
+
+  /* MEMORY BOXES */
+  .memory-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin:2.5rem 0; }
+  .memory-box {
+    background:white; border:0.5px solid var(--border); border-radius:12px;
+    padding:1.75rem; border-top: 4px solid var(--teal);
+  }
+  .memory-box.coral { border-top-color: var(--coral); }
+  .memory-tag {
+    font-size:0.7rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase;
+    color: var(--teal); margin-bottom:0.5rem;
+  }
+  .memory-box.coral .memory-tag { color: var(--coral); }
+  .memory-title { font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:700; margin-bottom:0.75rem; }
+  .memory-text { font-size:0.92rem; line-height:1.75; color:#555; font-weight:300; }
+
+  /* VIDEO LINK */
+  .video-link {
+    display:flex; align-items:flex-start; gap:1rem;
+    background: var(--teal-pale); border:0.5px solid #9FE1CB;
+    border-radius:10px; padding:1.25rem 1.5rem; margin:2rem 0; text-decoration:none;
+    transition: all 0.2s;
+  }
+  .video-link:hover { background:#C8EEE3; }
+  .video-icon {
+    width:40px; height:40px; border-radius:50%; background:var(--teal);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    color:white; font-size:0.9rem;
+  }
+  .video-info { flex:1; }
+  .video-label { font-size:0.7rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--teal); margin-bottom:0.25rem; }
+  .video-title { font-size:0.95rem; font-weight:500; color:var(--charcoal); margin-bottom:0.3rem; }
+  .video-caption { font-size:0.82rem; color:#555; font-weight:300; line-height:1.5; }
+
+  /* STAT CARDS */
+  .stat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin:2.5rem 0; }
+  .stat-card {
+    background:white; border:0.5px solid var(--border); border-radius:12px;
+    padding:1.5rem; text-align:center;
+  }
+  .stat-number { font-family:'Playfair Display',serif; font-size:2.8rem; font-weight:900; color:var(--teal); line-height:1; }
+  .stat-label { font-size:0.8rem; color:var(--mid); margin-top:0.5rem; line-height:1.4; font-weight:400; }
+  .stat-source { font-size:0.7rem; color:#AAA; margin-top:0.4rem; }
+
+  /* CHART CONTAINERS */
+  .chart-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin:2.5rem 0; }
+  .chart-card {
+    background:white; border:0.5px solid var(--border); border-radius:12px; padding:1.75rem;
+  }
+  .chart-title { font-size:0.95rem; font-weight:500; margin-bottom:0.25rem; }
+  .chart-source { font-size:0.72rem; color:#AAA; margin-bottom:1rem; }
+  .chart-legend { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:1rem; font-size:0.75rem; color:var(--mid); }
+  .chart-legend span { display:flex; align-items:center; gap:5px; }
+  .chart-legend span::before { content:''; width:10px; height:10px; border-radius:2px; background:var(--c,#ccc); }
+
+  /* TABLE */
+  .table-card { background:white; border:0.5px solid var(--border); border-radius:12px; overflow:hidden; margin:2rem 0; }
+  .table-header { background:var(--teal); padding:1.25rem 1.75rem; }
+  .table-header h3 { color:white; font-size:0.95rem; font-weight:500; }
+  .table-header p { color:rgba(255,255,255,0.65); font-size:0.78rem; margin-top:0.2rem; }
+  table { width:100%; border-collapse:collapse; }
+  th { padding:0.85rem 1.25rem; font-size:0.75rem; font-weight:500; letter-spacing:0.06em; text-transform:uppercase; color:var(--mid); text-align:left; border-bottom:1px solid var(--border); }
+  td { padding:0.9rem 1.25rem; font-size:0.88rem; border-bottom:0.5px solid #F0EDE7; }
+  tr:last-child td { border-bottom:none; }
+  tr.secure-row { background:#F0FAF5; }
+  tr.secure-row td { color:#0F6E56; font-weight:500; }
+  tr.secure-row td:last-child::after { content:' ✓'; }
+
+  /* CASE STUDY */
+  .interaction-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin:2.5rem 0; }
+  .interaction-card {
+    border:0.5px solid var(--border); border-radius:12px; padding:1.5rem;
+  }
+  .interaction-card.leif { border-top:4px solid var(--teal); background:var(--teal-pale); }
+  .interaction-card.clara { border-top:4px solid var(--coral); background:var(--coral-pale); }
+  .ic-name { font-size:0.7rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:0.4rem; }
+  .leif .ic-name { color:var(--teal); }
+  .clara .ic-name { color:var(--coral); }
+  .ic-style { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; margin-bottom:0.75rem; }
+  .ic-traits { list-style:none; }
+  .ic-traits li { font-size:0.88rem; color:#555; padding:0.3rem 0; font-weight:300; }
+  .ic-traits li::before { content:'→ '; color:var(--teal); font-weight:500; }
+  .clara .ic-traits li::before { color:var(--coral); }
+
+  /* VIDEO PLACEHOLDER */
+  .video-placeholder {
+    background:white; border:2px dashed var(--border); border-radius:12px;
+    padding:3rem 2rem; text-align:center; margin:2rem 0;
+  }
+  .vp-icon { font-size:2.5rem; margin-bottom:1rem; }
+  .vp-title { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; margin-bottom:0.5rem; }
+  .vp-text { font-size:0.88rem; color:var(--mid); font-weight:300; line-height:1.6; }
+
+  /* TIGER SECTION */
+  #tigers { background: var(--charcoal); }
+  #tigers .section-label { color:var(--coral); }
+  #tigers .section-title { color:white; }
+  #tigers .section-divider { background:var(--coral); }
+  #tigers .prose p { color:rgba(255,255,255,0.75); }
+  #tigers .pull-quote { background: rgba(255,255,255,0.08); }
+  .theory-chips { display:flex; flex-wrap:wrap; gap:0.75rem; margin:2rem 0; }
+  .theory-chip {
+    background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.85);
+    border:1px solid rgba(255,255,255,0.15); border-radius:100px;
+    padding:0.5rem 1.2rem; font-size:0.82rem; font-weight:400;
+  }
+  .theory-chip strong { color:var(--coral); font-weight:500; }
+
+  /* REFERENCES */
+  #references { background:white; }
+  .ref-list { list-style:none; }
+  .ref-list li {
+    padding:1.25rem 0; border-bottom:0.5px solid var(--border);
+    font-size:0.9rem; line-height:1.7; color:#444; font-weight:300;
+  }
+  .ref-list li:last-child { border-bottom:none; }
+  .ref-list li strong { font-weight:500; color:var(--charcoal); }
+
+  /* FOOTER */
+  footer {
+    background:var(--teal); color:rgba(255,255,255,0.6);
+    text-align:center; padding:2rem; font-size:0.82rem;
+  }
+  footer strong { color:white; }
+
+  /* EMBED BLOCKS */
+  .embed-block {
+    background: white; border: 0.5px solid var(--border);
+    border-radius: 12px; padding: 1.5rem; margin: 2rem 0;
+  }
+  .embed-label {
+    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--teal); margin-bottom: 0.4rem;
+  }
+  .embed-caption {
+    font-size: 0.85rem; color: var(--mid); margin-bottom: 1rem;
+    font-weight: 300; line-height: 1.5;
+  }
+  .embed-wrap {
+    position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+    border-radius: 8px; background: #000;
+  }
+  .embed-wrap iframe {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    border: none; border-radius: 8px;
+  }
+  .embed-placeholder {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--teal); border-radius: 8px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 0.75rem;
+  }
+  .ep-icon { font-size: 2.5rem; }
+  .ep-title { color: white; font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; }
+  .ep-text { color: rgba(255,255,255,0.65); font-size: 0.82rem; font-weight: 300; text-align: center; max-width: 280px; line-height: 1.5; }
+
+  @media(max-width:700px) {
+    nav { padding:0 1rem; }
+    .nav-links { display:none; }
+    .memory-grid, .chart-grid, .interaction-grid, .stat-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Attachment Theory & The Self</div>
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#science">The Science</a>
+    <a href="#mystory">My Story</a>
+    <a href="#numbers">By The Numbers</a>
+    <a href="#clara">Clara & Me</a>
+    <a href="#tigers">The Tigers</a>
+    <a href="#references">References</a>
+  </div>
+</nav>
+
+
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-inner">
+    <div class="hero-label">Science of the Mind — University Assignment</div>
+    <h1 class="hero-title">Attachment Theory<br><span>&amp; The Self</span></h1>
+    <p class="hero-subtitle">A Personal Multimodal Exploration &nbsp;·&nbsp; Leif Buechi</p>
+    <blockquote class="hero-quote">
+      "At no point in our lives can we escape the need for closeness to a protecting and loving partner in times of fear and tension."
+      <cite>— Bowlby, J. (1973). Attachment and Loss, Vol. 2. Basic Books.</cite>
+    </blockquote>
+    <div class="hero-nav">
+      <a href="#science">The Science</a>
+      <a href="#mystory">My Story</a>
+      <a href="#numbers">By The Numbers</a>
+      <a href="#clara">Clara & Me</a>
+      <a href="#tigers">The Tigers</a>
+      <a href="#references">References</a>
+    </div>
+  </div>
+</section>
+
+<!-- THE SCIENCE -->
+<section id="science" style="background:var(--cream);">
+  <div class="container">
+    <div class="section-label">Part 1a — Theory Overview</div>
+    <h2 class="section-title">Mark Solms & The Biology of Attachment in Mammals</h2>
+    <div class="section-divider"></div>
+
+    <div class="pull-quote">
+      "Attachment is the primal addiction — the brain's reward system is fundamentally organised around proximity to attachment figures."
+      <cite>— Solms, M. (2021). The Hidden Spring. Profile Books.</cite>
+    </div>
+
+    <div class="prose">
+      <p>Mark Solms, building on Jaak Panksepp's affective neuroscience, argues that attachment in mammals is not a learned behaviour — it is hardwired into subcortical emotional circuits deep in the brainstem. This biological foundation is shared across all mammalian species, from rodents to humans, and predates the evolution of the cortex entirely.</p>
+      <p>At the centre of Solms' theory is the <strong>PANIC/GRIEF circuit</strong> — the neurological engine of attachment. When a mammal is separated from its attachment figure, endorphin levels in the brain drop and the organism experiences a felt sense of acute panic. Reunion restores them. This is not metaphor — it is neurochemistry. Panksepp and Solms identified this circuit through electrical stimulation studies across mammalian species, finding identical distress vocalisations and behaviours wherever it was activated (Panksepp, 1998).</p>
+      <p>The complementary <strong>CARE circuit</strong> drives nurturing behaviour across all mammalian species. This system explains why a dog will mother tiger cubs, why a human father will sit by a hospital bed at 4am — the nurturing impulse operates below conscious choice. Unlike fish or turtles, mammals require extended caregiving after birth. This makes attachment not a luxury but an evolutionary necessity.</p>
+      <p>Solms bridges Bowlby and neuroscience in a crucial insight: what Bowlby (1969) called the "activation of the attachment system" maps directly onto these ancient subcortical circuits. The attachment behavioural system is, in essence, the PANIC/GRIEF circuit expressed in relational behaviour. As Fonagy et al. (2014) confirm, early attachment experiences forge the brain's capacity for affect regulation, attentional control, mentalisation, and self-agency — making attachment the very foundation of personality development.</p>
+    </div>
+
+    <div class="embed-block">
+      <div class="embed-label">Video 1 — Crash Course Psychology #19</div>
+      <div class="embed-caption">Harlow's contact comfort experiments, Ainsworth's Strange Situation and all four attachment styles — a concise overview of the biological foundations of attachment.</div>
+      <div class="embed-wrap">
+        <iframe src="https://www.youtube.com/embed/YcQg1EshfIE" title="Crash Course Psychology - Attachment" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MY STORY -->
+<section id="mystory" style="background:white;">
+  <div class="container">
+    <div class="section-label">Part 1b — Personal Reflection</div>
+    <h2 class="section-title">My Attachment Style: Secure (Type B)</h2>
+    <div class="section-divider"></div>
+
+    <div class="pull-quote">
+      "Security is not the absence of difficulty — it is having someone who shows up."
+    </div>
+
+    <div class="prose">
+      <p>I identify as securely attached — what Van Rosmalen, Van IJzendoorn and Bakermans-Kranenburg (2014) describe as a <em>basic trust that the world is predictable and reliable</em>, formed through sensitive and consistent caregiving. My attachment story did not emerge from a perfect household, but from a bicultural one.</p>
+      <p>I grew up with an emotionally expressive Brazilian mother and a quietly loving Swiss father — two profoundly different attachment styles, but both present when it truly mattered. As Van Rosmalen et al. (2014) note, a child can build an attachment network across multiple caregivers, each relationship unique depending on the quality of interactions. My security was built not despite this difference, but through it.</p>
+    </div>
+
+    <div class="memory-grid">
+      <div class="memory-box">
+        <div class="memory-tag">Formative Memory 1</div>
+        <div class="memory-title">Sailing with My Father</div>
+        <div class="memory-text">My father's calm, steady presence on the water regulated my nervous system without a single word. This is Bowlby's (1969) <em>secure base</em> made visceral — felt safety through proximity, the body knowing it is protected.</div>
+      </div>
+      <div class="memory-box coral">
+        <div class="memory-tag">Formative Memory 2</div>
+        <div class="memory-title">4am at the Hospital</div>
+        <div class="memory-text">My mother rushed me to hospital during a pericarditis episode, my systems spiralling. Her immediate, unconditional response was Solms' (2021) CARE circuit in action — the mammalian nurturing drive that operates below conscious choice.</div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>My father's later transformation in Hawaii — arriving burdened with emotional luggage and leaving it behind forever — illustrates what Van Rosmalen et al. (2014) call the <em>internal working model</em>: a mental representation of attachment that continually adjusts to new experience. His shift made him more emotionally present, deepening my secure base.</p>
+      <p>Fonagy et al. (2014) confirm that securely attached individuals are independently rated as more resilient, self-reliant, socially oriented and empathic, with deeper relationships and higher self-esteem. In practice: I handle conflict directly through open communication, I remain calm under stress, and when stressed I communicate it rather than suppress or amplify it. These are the hallmarks of secure attachment.</p>
+      <p>In practice, my secure attachment manifests as a high threshold for switching from controlled to automatic mentalising under stress — what Luyten and Fonagy (2014) describe as one of the defining features of secure attachment (Table 6.1). I process emotions in a fluid and non-defensive way, trusting others and perceiving little environmental threat. This enables genuine curiosity about the inner worlds of those I am close to — what Luyten and Fonagy (2014) call <em>mind-mindedness</em>.</p>
+    </div>
+
+    <div class="embed-block">
+      <div class="embed-label">Video 2 — Crash Course Psychology</div>
+      <div class="embed-caption">Attachment styles explained — how early caregiving shapes secure, avoidant and ambivalent patterns that persist into adult relationships.</div>
+      <div class="embed-wrap">
+        <iframe src="https://www.youtube.com/embed/YcQg1EshfIE?start=237" title="Attachment Styles - Crash Course Psychology" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BY THE NUMBERS -->
+<section id="numbers" style="background:var(--cream);">
+  <div class="container-wide">
+    <div class="container" style="padding:0;">
+      <div class="section-label">Data & Theory</div>
+      <h2 class="section-title">Attachment By The Numbers</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="stat-grid" style="max-width:900px;margin:0 auto 2rem;">
+      <div class="stat-card">
+        <div class="stat-number">63%</div>
+        <div class="stat-label">of children are securely attached</div>
+        <div class="stat-source">Fonagy et al. (2014)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">58%</div>
+        <div class="stat-label">of adults are secure / autonomous</div>
+        <div class="stat-source">Fonagy et al. (2014)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">70–77%</div>
+        <div class="stat-label">continuity of attachment from age 1 to adulthood</div>
+        <div class="stat-source">Van Rosmalen et al. (2014)</div>
+      </div>
+    </div>
+
+    <div class="chart-grid" style="max-width:900px;margin:0 auto;">
+      <div class="chart-card">
+        <div class="chart-title">Attachment distribution — children</div>
+        <div class="chart-source">Source: Fonagy et al. (2014), The Routledge Handbook of Attachment: Theory</div>
+        <div class="chart-legend">
+          <span style="--c:#1D9E75">Secure 63%</span>
+          <span style="--c:#D85A30">Avoidant 21%</span>
+          <span style="--c:#888780">Ambivalent 16%</span>
+        </div>
+        <div style="position:relative;height:220px;"><canvas id="pieChild"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Attachment distribution — adults</div>
+        <div class="chart-source">Source: Fonagy et al. (2014), The Routledge Handbook of Attachment: Theory</div>
+        <div class="chart-legend">
+          <span style="--c:#1D9E75">Secure 58%</span>
+          <span style="--c:#D85A30">Dismissing 23%</span>
+          <span style="--c:#BA7517">Preoccupied 19%</span>
+        </div>
+        <div style="position:relative;height:220px;"><canvas id="pieAdult"></canvas></div>
+      </div>
+    </div>
+
+    <div class="table-card" style="max-width:900px;margin:2rem auto 0;">
+      <div class="table-header">
+        <h3>Attachment strategies and mentalising capacity</h3>
+        <p>Table 6.1 — Luyten, P. and Fonagy, P. (2014), The Routledge Handbook of Attachment: Theory</p>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Attachment style</th>
+            <th>Threshold for switch</th>
+            <th>Automatic response</th>
+            <th>Recovery of controlled mentalising</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="secure-row">
+            <td>Secure</td>
+            <td>High</td>
+            <td>Moderate</td>
+            <td>Fast</td>
+          </tr>
+          <tr>
+            <td>Hyperactivating</td>
+            <td>Low: hyperresponsivity</td>
+            <td>Strong</td>
+            <td>Slow</td>
+          </tr>
+          <tr>
+            <td>Deactivating</td>
+            <td>Relatively high</td>
+            <td>Weak to moderate</td>
+            <td>Relatively fast</td>
+          </tr>
+          <tr>
+            <td>Disorganised</td>
+            <td>Incoherent</td>
+            <td>Strong</td>
+            <td>Slow</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="chart-card" style="max-width:900px;margin:2rem auto 0;">
+      <div class="chart-title">Mentalising recovery speed by attachment style</div>
+      <div class="chart-source">Derived from Table 6.1 — Luyten & Fonagy (2014). Higher = faster return to controlled mentalising under stress.</div>
+      <div style="position:relative;height:240px;"><canvas id="barChart"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLARA & ME -->
+<section id="clara" style="background:white;">
+  <div class="container">
+    <div class="section-label">Part 1b — Personal Case Study</div>
+    <h2 class="section-title">Clara & Me: Two Attachment Styles, One Relationship</h2>
+    <div class="section-divider"></div>
+
+    <div class="pull-quote">
+      "Two attachment styles. Eleven months. Continuous growth."
+    </div>
+
+    <div class="interaction-grid">
+      <div class="interaction-card leif">
+        <div class="ic-name">Leif Buechi</div>
+        <div class="ic-style">Secure (Type B)</div>
+        <ul class="ic-traits">
+          <li>High mentalising threshold under stress</li>
+          <li>Fast recovery of controlled mentalising</li>
+          <li>Moves toward conflict through communication</li>
+          <li>Trusts others, perceives little threat</li>
+          <li>Broaden and build cycles</li>
+        </ul>
+      </div>
+      <div class="interaction-card clara">
+        <div class="ic-name">Clara</div>
+        <div class="ic-style">Fearful-Avoidant</div>
+        <ul class="ic-traits">
+          <li>Craves closeness while fearing it</li>
+          <li>Approach-avoidance dynamic</li>
+          <li>Low threshold for activation under stress</li>
+          <li>Internal working model: closeness = hurt</li>
+          <li>Slow recovery of controlled mentalising</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>Clara, my girlfriend of eleven months, has a fearful-avoidant attachment style — simultaneously craving closeness and fearing it. In Bowlby's (1969) terms, her internal working model carries both the longing for a secure base and the expectation that it will be withdrawn. This produces an approach-avoidance dynamic in which the attachment figure — me — is both desired and threatening.</p>
+      <p>When Clara activates her avoidant defences — pulling back, needing space, becoming emotionally distant — my secure attachment means I remain regulated rather than pursuing frantically or withdrawing in kind. This is my high mentalising threshold in action (Luyten and Fonagy, 2014, Table 6.1). I am able to hold Clara's mental state in mind: understanding her withdrawal as a self-protective strategy rather than rejection — the essence of what Luyten and Fonagy (2014) define as mentalising: the capacity to envision another in terms of their feelings, desires, wishes and intentions.</p>
+      <p>My direct communication style functions as what attachment theorists call a <em>corrective attachment experience</em> — a relational encounter that gently challenges Clara's fearful expectation that closeness inevitably leads to hurt. Tensions do exist. Clara can occasionally misread my security and directness as pressure, triggering further withdrawal. In these moments, I draw on the <em>broaden and build</em> capacity that Luyten and Fonagy (2014) associate with secure attachment — staying curious rather than reactive, returning to the relationship with openness rather than demand.</p>
+      <p>My bicultural upbringing equipped me to remain present with Clara's complexity. My father's quiet steadiness and my mother's fierce, unconditional responsiveness gave me two complementary models of love — models that together mirror the very attachment network described by Van Rosmalen et al. (2014).</p>
+    </div>
+
+    <div class="embed-block">
+      <div class="embed-label">Video 4 — Personal Case Study Interview</div>
+      <div class="embed-caption">A personal video interview with Clara — exploring our relationship dynamic from her perspective, filmed as part of this project.</div>
+      <div class="embed-wrap">
+        <div class="embed-placeholder">
+          <div class="ep-icon">🎬</div>
+          <div class="ep-title">Clara Interview — Coming Soon</div>
+          <div class="ep-text">This video will be embedded here once filmed. Questions are drawn from attachment theory concepts including proximity-seeking, mentalising and felt security.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE TIGERS -->
+<section id="tigers">
+  <div class="container">
+    <div class="section-label">Cross-Species Evidence</div>
+    <h2 class="section-title">The Dog & The Tigers: Attachment Across Species</h2>
+    <div class="section-divider"></div>
+
+    <div class="pull-quote">
+      "Love knows no species — and the neuroscience agrees."
+    </div>
+
+    <div class="prose">
+      <p>A dog raised three abandoned Bengal tiger cubs. Now fully grown — vastly larger than their surrogate mother — the tigers still seek her out, still recognise her as their primary attachment figure. This is not a viral curiosity. It is attachment theory made visible.</p>
+      <p>This story illustrates three core theoretical arguments simultaneously. First, Harlow's (1958) contact comfort principle: attachment forms with the available caregiver, not the biological one. The tiger cubs bonded to warmth, presence and responsiveness — not genetics. Harlow demonstrated the same principle with rhesus monkeys who chose a cloth surrogate mother over a wire one that provided milk.</p>
+      <p>Second, Solms' (2021) CARE circuit: the nurturing drive activated in the dog automatically, across species lines, because the CARE system does not discriminate. It responds to infant distress signals — full stop. Third, Van Rosmalen et al. (2014) confirm that attachment does not depend on a biological tie with the attachment figure. Sensitive interaction is what creates the bond.</p>
+      <p>Most powerfully, the tigers' enduring bond mirrors Bowlby's (1973) internal working model: the dog is encoded as their primary attachment figure in early life and remains so into adulthood. This maps precisely onto what Van Rosmalen et al. (2014) describe — a secure attachment relationship at age one predicts secure attachment representations sixteen to eighteen years later.</p>
+    </div>
+
+    <div class="theory-chips">
+      <div class="theory-chip"><strong>Harlow (1958)</strong> — contact comfort over biological mother</div>
+      <div class="theory-chip"><strong>Solms (2021)</strong> — CARE circuit across species</div>
+      <div class="theory-chip"><strong>Van Rosmalen et al. (2014)</strong> — no biological tie required</div>
+      <div class="theory-chip"><strong>Bowlby (1973)</strong> — internal working model persists into adulthood</div>
+    </div>
+
+    <div class="embed-block" style="border-color:rgba(255,255,255,0.15);">
+      <div class="embed-label" style="color:var(--coral);">Video 3 — Cross-Species Attachment</div>
+      <div class="embed-caption" style="color:rgba(255,255,255,0.6);">A dog who raised Bengal tiger cubs — now fully grown, they still recognise her as their mother. Proof that attachment transcends species, size and biology.</div>
+      <div class="embed-wrap">
+        <iframe src="https://www.youtube.com/embed/ZYAUyiuAG7s" title="Dog and Tiger Cubs Attachment" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REFERENCES -->
+<section id="references">
+  <div class="container">
+    <div class="section-label">Academic Sources</div>
+    <h2 class="section-title">References</h2>
+    <div class="section-divider"></div>
+
+    <ul class="ref-list">
+      <li><strong>Ainsworth, M.D.S., Blehar, M.C., Waters, E. and Wall, S. (1978)</strong> <em>Patterns of Attachment: A Psychological Study of the Strange Situation.</em> Lawrence Erlbaum Associates.</li>
+      <li><strong>Bowlby, J. (1969)</strong> <em>Attachment and Loss, Vol. 1: Attachment.</em> Basic Books.</li>
+      <li><strong>Bowlby, J. (1973)</strong> <em>Attachment and Loss, Vol. 2: Separation, Anxiety and Anger.</em> Basic Books.</li>
+      <li><strong>Fonagy, P., Lorenzini, N., Campbell, C. and Luyten, P. (2014)</strong> 'Why are we interested in attachments?' in Holmes, P. and Farnfield, S. (eds.) <em>The Routledge Handbook of Attachment: Theory.</em> Taylor and Francis. [Perlego]</li>
+      <li><strong>Harlow, H.F. (1958)</strong> 'The nature of love.' <em>American Psychologist,</em> 13(12), pp. 673–685.</li>
+      <li><strong>Luyten, P. and Fonagy, P. (2014)</strong> 'Mentalising in attachment contexts' in Holmes, P. and Farnfield, S. (eds.) <em>The Routledge Handbook of Attachment: Theory.</em> Taylor and Francis. [Perlego]</li>
+      <li><strong>Panksepp, J. (1998)</strong> <em>Affective Neuroscience: The Foundations of Human and Animal Emotions.</em> Oxford University Press.</li>
+      <li><strong>Solms, M. (2021)</strong> <em>The Hidden Spring: A Journey to the Source of Consciousness.</em> Profile Books.</li>
+      <li><strong>Van Rosmalen, L., Van IJzendoorn, M.H. and Bakermans-Kranenburg, M.J. (2014)</strong> 'ABC + D of attachment theory: the Strange Situation procedure as the gold standard of attachment assessment' in Holmes, P. and Farnfield, S. (eds.) <em>The Routledge Handbook of Attachment: Theory.</em> Taylor and Francis. [Perlego]</li>
+      <li><strong>Attachment Theory (2026)</strong> <em>Science of the Mind, Week 9 — Lecture Slides.</em> [Course material]</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <strong>Leif Buechi</strong> &nbsp;·&nbsp; Attachment Theory & The Self &nbsp;·&nbsp; Science of the Mind &nbsp;·&nbsp; 2026
+</footer>
+
+<script>
+const pieOpts = {
+  responsive:true, maintainAspectRatio:false, cutout:'62%',
+  plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:(c)=>c.label+': '+c.parsed+'%' } } }
+};
+new Chart(document.getElementById('pieChild'),{
+  type:'doughnut',
+  data:{ labels:['Secure','Avoidant','Ambivalent'], datasets:[{ data:[63,21,16], backgroundColor:['#1D9E75','#D85A30','#888780'], borderWidth:3, borderColor:'#fff' }] },
+  options:pieOpts
+});
+new Chart(document.getElementById('pieAdult'),{
+  type:'doughnut',
+  data:{ labels:['Secure/Autonomous','Avoidant/Dismissing','Anxious/Preoccupied'], datasets:[{ data:[58,23,19], backgroundColor:['#1D9E75','#D85A30','#BA7517'], borderWidth:3, borderColor:'#fff' }] },
+  options:pieOpts
+});
+new Chart(document.getElementById('barChart'),{
+  type:'bar',
+  data:{
+    labels:['Secure','Hyperactivating','Deactivating','Disorganised'],
+    datasets:[{ label:'Recovery speed (%)', data:[95,20,65,15], backgroundColor:['#1D9E75','#D85A30','#BA7517','#888780'], borderRadius:6, borderSkipped:false }]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false} },
+    scales:{
+      x:{ grid:{display:false}, ticks:{color:'#888'} },
+      y:{ min:0, max:100, grid:{color:'rgba(0,0,0,0.05)'}, ticks:{ color:'#888', callback:(v)=>v+'%' } }
+    }
+  }
+});
+</script>
+</body>
+</html>
